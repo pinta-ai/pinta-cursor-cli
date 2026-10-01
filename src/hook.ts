@@ -37,7 +37,7 @@ export async function runHook(): Promise<number> {
     }
     return await dispatch(event, loadConfig());
   } catch (err) {
-    process.stderr.write(`[pinta-cursor] hook failed open: ${err}\n`);
+    process.stderr.write(`[pinta-cursor-cli] hook failed open: ${err}\n`);
     writeResponse({ permission: "allow" });
     return 0;
   }

@@ -21,7 +21,7 @@ export function evaluateGuard(payload: GuardPayload): Promise<GuardResult | null
     timeoutMs: timeoutMs(),
     token: process.env.PINTA_RELAY_TOKEN ?? "",
     disabled: process.env.PINTA_GUARD_DISABLED === "1",
-    userAgent: `pinta-cursor/${ADAPTER_VERSION}`,
+    userAgent: `pinta-cursor-cli/${ADAPTER_VERSION}`,
     agentType: "cursor",
   });
 }

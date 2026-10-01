@@ -84,10 +84,10 @@ export function buildOtlpPayload(event: CursorEvent, traceId: string): OtlpPaylo
       key: "service.version",
       value: { stringValue: stringValue(event.cursor_version) ?? "unknown" },
     },
-    { key: "telemetry.sdk.name", value: { stringValue: "pinta-cursor" } },
+    { key: "telemetry.sdk.name", value: { stringValue: "pinta-cursor-cli" } },
     { key: "telemetry.sdk.language", value: { stringValue: "nodejs" } },
     { key: "telemetry.sdk.version", value: { stringValue: ADAPTER_VERSION } },
-    { key: "pinta.adapter.name", value: { stringValue: "pinta-cursor" } },
+    { key: "pinta.adapter.name", value: { stringValue: "pinta-cursor-cli" } },
     { key: "pinta.adapter.version", value: { stringValue: ADAPTER_VERSION } },
     { key: "gen_ai.agent.name", value: { stringValue: "cursor" } },
     { key: "os.type", value: { stringValue: os.platform() } },
@@ -100,6 +100,6 @@ export function buildOtlpPayload(event: CursorEvent, traceId: string): OtlpPaylo
     spanName: `cursor.${snakeCase(hookName)}${toolName ? `.${snakeCase(toolName)}` : ""}`,
     attributes,
     resource,
-    scope: { name: "pinta-cursor", version: ADAPTER_VERSION },
+    scope: { name: "pinta-cursor-cli", version: ADAPTER_VERSION },
   });
 }

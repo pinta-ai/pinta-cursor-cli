@@ -31,7 +31,7 @@ describe("buildOtlpPayload", () => {
         Object.values(attribute.value)[0],
       ]),
     );
-    expect(resource["pinta.adapter.name"]).toBe("pinta-cursor");
+    expect(resource["pinta.adapter.name"]).toBe("pinta-cursor-cli");
     expect(attrs(payload)).toMatchObject({
       "ingest.type": "cursor",
       "cursor.hook": "preToolUse",

@@ -1,4 +1,4 @@
-# @pinta-ai/pinta-cursor
+# @pinta-ai/pinta-cursor-cli
 
 Pinta AI's native hook adapter for Cursor IDE and Cursor CLI.
 
@@ -23,6 +23,6 @@ Cursor's native `allow` or `deny` response. A denied action also exits with code
 
 `pinta-manager` installs the package and merges the managed hook entry into
 `~/.cursor/hooks.json`. The manager preserves user-owned hooks and writes runtime
-configuration to `~/.cursor/pinta-cursor.env`.
+configuration to `~/.cursor/pinta-cursor-cli.env`.
 
 The package's hook template is at `hooks/hooks.template.json`.

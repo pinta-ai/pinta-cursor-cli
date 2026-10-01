@@ -1,5 +1,5 @@
 {
-  "name": "@pinta-ai/pinta-cursor",
+  "name": "@pinta-ai/pinta-cursor-cli",
   "version": "0.1.0",
   "description": "Pinta AI guard adapter for Cursor IDE and Cursor CLI hooks",
   "main": "dist/index.js",
@@ -12,11 +12,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pinta-ai/pinta-cursor.git"
+    "url": "https://github.com/pinta-ai/pinta-cursor-cli.git"
   },
-  "homepage": "https://github.com/pinta-ai/pinta-cursor#readme",
+  "homepage": "https://github.com/pinta-ai/pinta-cursor-cli#readme",
   "bugs": {
-    "url": "https://github.com/pinta-ai/pinta-cursor/issues"
+    "url": "https://github.com/pinta-ai/pinta-cursor-cli/issues"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

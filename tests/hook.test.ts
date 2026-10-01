@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import { dispatch, parsePayload } from "../src/hook.js";
 import type { CursorHookResponse } from "../src/core/types.js";
 
-const CONFIG = { pluginData: "/tmp/pinta-cursor-test", tracePath: "/tmp/pinta-cursor-trace.json" };
+const CONFIG = {
+  pluginData: "/tmp/pinta-cursor-cli-test",
+  tracePath: "/tmp/pinta-cursor-cli-trace.json",
+};
 
 describe("parsePayload", () => {
   it("accepts an object payload", () => {

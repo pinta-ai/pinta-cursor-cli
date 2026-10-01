@@ -10,7 +10,7 @@ export function pluginDataDir(): string {
   return (
     process.env.PINTA_CURSOR_DATA ||
     process.env.PINTA_PLUGIN_DATA ||
-    path.join(os.homedir(), ".pinta", "adaptors", "pinta-cursor")
+    path.join(os.homedir(), ".pinta", "adaptors", "pinta-cursor-cli")
   );
 }
 

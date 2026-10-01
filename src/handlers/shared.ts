@@ -20,7 +20,7 @@ export async function sendBestEffort(payload: OtlpPayload, config: PintaConfig):
     await transport.flush();
     await transport.send(payload);
   } catch (err) {
-    process.stderr.write(`[pinta-cursor] telemetry emit failed: ${err}\n`);
+    process.stderr.write(`[pinta-cursor-cli] telemetry emit failed: ${err}\n`);
   }
 }
 
@@ -28,11 +28,11 @@ export function deferBestEffort(payload: OtlpPayload, config: PintaConfig): void
   try {
     if (!envOptionsResolver()) return;
     if (Buffer.byteLength(JSON.stringify(payload), "utf8") > MAX_POST_BYTES) {
-      process.stderr.write("[pinta-cursor] deferred telemetry exceeds MAX_POST_BYTES; dropped\n");
+      process.stderr.write("[pinta-cursor-cli] deferred telemetry exceeds MAX_POST_BYTES; dropped\n");
       return;
     }
-    new DiskRetryQueue(config.pluginData, "pinta-cursor").enqueue(payload);
+    new DiskRetryQueue(config.pluginData, "pinta-cursor-cli").enqueue(payload);
   } catch (err) {
-    process.stderr.write(`[pinta-cursor] telemetry enqueue failed: ${err}\n`);
+    process.stderr.write(`[pinta-cursor-cli] telemetry enqueue failed: ${err}\n`);
   }
 }
