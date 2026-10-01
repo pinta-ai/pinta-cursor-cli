@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.tgz
+.plugin-data/
+.test-runtime/
+.DS_Store
