@@ -6,7 +6,7 @@
         "command": "node ${PINTA_CURSOR_ROOT}/dist/index.js",
         "matcher": "^(?!MCP:).*$",
         "timeout": 20,
-        "failClosed": false
+        "failClosed": true
       }
     ]
   }
