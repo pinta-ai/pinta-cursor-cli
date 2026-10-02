@@ -1,6 +1,6 @@
 {
   "name": "@pinta-ai/pinta-cursor-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pinta AI guard adapter for Cursor IDE and Cursor CLI hooks",
   "main": "dist/index.js",
   "license": "PolyForm-Noncommercial-1.0.0",
