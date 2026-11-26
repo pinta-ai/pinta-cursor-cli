@@ -26,3 +26,16 @@ Cursor's native `allow` or `deny` response. A denied action also exits with code
 configuration to `~/.cursor/pinta-cursor-cli.env`.
 
 The package's hook template is at `hooks/hooks.template.json`.
+
+## Stage candidates
+
+`0.1.2-pta1010.1` bundles Core `0.11.1-pta1010.1` to distinguish proved Fetch
+credential modes and non-password CLI options from secrets, and to avoid
+recognizing long `risk-...` URL paths as OpenAI keys. Actual passwords and
+unknown consumers remain protected. The bundled parser's MIT notice is included.
+
+Prerelease tags publish immutable GitHub release tarballs, matching Cursor's
+existing catalog distribution; they do not publish to npm `latest`. Installation
+requires explicit compatible Stage approval in `pinta-catalog`. Stable npm
+publishing is unchanged. This does not add a Cursor post-tool hook: MCP calls
+continue to use the separately versioned MCP Logger.
