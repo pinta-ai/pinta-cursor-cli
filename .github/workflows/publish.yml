@@ -1,11 +1,11 @@
-name: Publish to npm
+name: Publish
 
 on:
   push:
     tags: ['v*']
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
   packages: read
 
@@ -30,7 +30,9 @@ jobs:
       - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_USERCONFIG: /dev/null
 
+      - run: npm test
       - run: npm run build
 
       - name: Check version
@@ -54,9 +56,22 @@ jobs:
       # --access public is required, not cosmetic: pinta-manager installs
       # adaptors from unauthenticated registry.npmjs.org tarball URLs listed in
       # the catalog, so a restricted package would be uninstallable.
-      - name: Publish
-        if: steps.check-version.outputs.skip == 'false'
+      - name: Publish stable to npm
+        if: steps.check-version.outputs.skip == 'false' && !contains(steps.check-version.outputs.version, '-')
         run: npm publish --access public
+
+      # Cursor's catalog distribution is a GitHub release tarball. Prereleases
+      # use the same path without creating or moving npm's stable latest tag.
+      - name: Publish prerelease artifact
+        if: contains(steps.check-version.outputs.version, '-')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TARBALL=$(npm pack --silent)
+          gh release create "$GITHUB_REF_NAME" "$TARBALL" \
+            --verify-tag --prerelease \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Stage candidate. Installed only through explicit Pinta catalog approval."
 
       - name: Notify Slack
         if: always()
@@ -80,5 +95,9 @@ jobs:
           if [ "$SKIP" = "true" ]; then
             PUBLISH_STATE="skipped (version unchanged)"
           fi
-          payload=$(printf '%s' '{"attachments":[{"color":"'"$COLOR"'","title":"@pinta-ai/pinta-cursor-cli publish","text":"'"$STATUS_TEXT"' - publish '"$PUBLISH_STATE"'","fields":[{"title":"Version","value":"'"$VERSION"'","short":true},{"title":"Install","value":"npm install @pinta-ai/pinta-cursor-cli@'"$VERSION"'","short":false},{"title":"Run","value":"'"$WORKFLOW_URL"'","short":false}]}]}')
+          INSTALL_HINT="npm install @pinta-ai/pinta-cursor-cli@$VERSION"
+          if [[ "$VERSION" == *-* ]]; then
+            INSTALL_HINT="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tag/v$VERSION"
+          fi
+          payload=$(printf '%s' '{"attachments":[{"color":"'"$COLOR"'","title":"@pinta-ai/pinta-cursor-cli publish","text":"'"$STATUS_TEXT"' - publish '"$PUBLISH_STATE"'","fields":[{"title":"Version","value":"'"$VERSION"'","short":true},{"title":"Install","value":"'"$INSTALL_HINT"'","short":false},{"title":"Run","value":"'"$WORKFLOW_URL"'","short":false}]}]}')
           curl -X POST -H 'Content-type: application/json' --data "$payload" "$WEBHOOK_URL"
